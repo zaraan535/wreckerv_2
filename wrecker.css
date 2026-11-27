@@ -345,6 +345,7 @@ button { font: inherit; color: inherit; }
 .po-info h2 { font-size: clamp(40px, 5.2vw, 68px); margin-bottom: 22px; }
 .po-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px; margin: 0 0 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
 .po-price { margin: 0; color: var(--navy); font-size: clamp(26px, 2.6vw, 32px); font-weight: 600; letter-spacing: 0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
+.po-soldout[hidden] { display: none; }
 .po-soldout { display: inline-block; padding: 6px 10px 5px; border: 1px solid var(--ink); font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; line-height: 1.2; }
 .po-status { display: flex; align-items: center; gap: 10px; margin: 0 0 30px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
 .po-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #b23a2a; flex: none; }

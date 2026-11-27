@@ -7,10 +7,10 @@
   var doc = document;
   var $ = function (s, c) { return (c || doc).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
-  // SOLD OUT: when new stock arrives, change this to true.
+  // STOCK SWITCH: true = hoodie is in stock and orders are open. Set to false when it sells out.
   // Badges, status line, buttons, announcement bar and mobile bar all switch automatically.
-  var OPEN = false;
-  var STOCK_TEXT = OPEN ? "Preorders open now" : "Sold out \u2014 new stock coming soon";
+  var OPEN = true;
+  var STOCK_TEXT = OPEN ? "In stock \u2014 order now" : "Sold out \u2014 new stock coming soon";
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -185,7 +185,7 @@
     });
   })();
 
-  /* ---------- preorder (currently SOLD OUT) ---------- */
+  /* ---------- order form (stock controlled by OPEN at the top) ---------- */
   (function () {
     var form = $("#order-form");
     if (!form) return;
@@ -211,19 +211,19 @@
       if (status) status.classList.toggle("open", OPEN);
       if (gallery) gallery.classList.toggle("soldout", !OPEN);
       if (soldTag) soldTag.hidden = OPEN;
-      if (statusText) statusText.textContent = OPEN ? "Preorders are open" : STOCK_TEXT;
+      if (statusText) statusText.textContent = STOCK_TEXT;
       if (picked) picked.textContent = size || "—";
       if (size) {
         summary.classList.remove("empty");
         summary.innerHTML = "<span>" + PRODUCT + " · Size " + size + "</span><span class=\"sum-price\">" + PRICE + "</span>";
       } else {
         summary.classList.add("empty");
-        summary.textContent = "Pick your size above to start your preorder.";
+        summary.textContent = "Pick your size above to start your order.";
       }
       submit.disabled = sending || !(OPEN && size);
-      if (!sending) submit.innerHTML = OPEN ? "Place preorder <span class=\"arrow\" aria-hidden=\"true\">→</span>" : "Sold out";
+      if (!sending) submit.innerHTML = OPEN ? "Place order <span class=\"arrow\" aria-hidden=\"true\">→</span>" : "Sold out";
       if (bbBtn) {
-        if (OPEN) { bbBtn.textContent = "Preorder"; bbBtn.href = "#order"; bbBtn.removeAttribute("target"); }
+        if (OPEN) { bbBtn.textContent = "Order now"; bbBtn.href = "#order"; bbBtn.removeAttribute("target"); }
         else { bbBtn.textContent = "Get notified"; bbBtn.href = "https://ig.me/m/wrecker.co"; bbBtn.target = "_blank"; bbBtn.rel = "noopener"; }
       }
     }
@@ -239,7 +239,7 @@
       var f = new FormData(form);
       var data = {
         access_key: ACCESS_KEY,
-        subject: "New preorder: Navy WRECK Hoodie, size " + size,
+        subject: "New order: Navy WRECK Hoodie, size " + size,
         from_name: "wrecker website",
         product: "Navy WRECK Hoodie",
         size: size,
@@ -267,7 +267,7 @@
           var done = doc.createElement("div");
           done.id = "order-done";
           done.setAttribute("role", "status");
-          done.innerHTML = "<strong>Your preorder is in.</strong><p>Thank you. We have your order for size " + size +
+          done.innerHTML = "<strong>Your order is in.</strong><p>Thank you. We have your order for size " + size +
             " and will contact you to confirm. Questions? Message us on <a class=\"link\" href=\"https://www.instagram.com/wrecker.co/\" target=\"_blank\" rel=\"noopener\">Instagram</a>.</p>";
           form.parentNode.replaceChild(done, form);
         })
